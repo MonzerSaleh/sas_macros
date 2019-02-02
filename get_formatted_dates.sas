@@ -14,6 +14,8 @@
 /*                  ymdd      =    &prefix._ymdd_date  =    YYYY-MM-DD          */
 /*                  ymddq     =    &prefix._ymddq_date =    'YYYY-MM-DD'        */
 /*                  sas       =    &prefix._sas_date   =    19516               */
+/*==============================================================================*/
+
 %macro get_formatted_dates(
     prefix    = process_sta,
     suffix    = dt,
