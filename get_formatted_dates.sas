@@ -7,17 +7,10 @@
 /* Descr:      This sas macro will create a series of output global macro  */
 /*                  variables where the values are date formatted using         */
 /*                  different output formats:                                   */
-/*                                                                              */
-/*                  Name      =    Variable            =    output format       */
-/*                  ========= =    ==================  =    =================== */
-/*                  ymdn      =    &prefix._ymdn_date  =    YYYYMMDD            */
-/*                  ymdd      =    &prefix._ymdd_date  =    YYYY-MM-DD          */
-/*                  ymddq     =    &prefix._ymddq_date =    'YYYY-MM-DD'        */
-/*                  sas       =    &prefix._sas_date   =    19516               */
 /*==============================================================================*/
 
 %macro get_formatted_dates(
-    prefix    = process_sta,
+    prefix    = thisproc_,
     suffix    = dt,
     date      = yyyy-mm-dd
 );
@@ -40,13 +33,14 @@
 
 /*==============================================================================*/
 /* step 003    Define the default SAS un-formatted date.                        */
-%global   &prefix._sas_&suffix.;
-%let      &prefix._sas_&suffix.    =    %sysfunc( mdy(&mm.,&dd.,&yyyy.) );
+%global   &prefix._sas_ndate;
+%let      &prefix._sas_ndate    =    %sysfunc( mdy(&mm.,&dd.,&yyyy.) );
+
 
 /*==============================================================================*/
 /* step 004    Define the YMDD formatted date with dashes.                      */
-%global   &prefix._ymdd_&suffix.;
-%let      &prefix._ymdd_&suffix.   =    &yyyy.-&mm.-&dd.;
+%global   &prefix._ymd_&suffix.;
+%let      &prefix._ymd_&suffix.   =    &yyyy.-&mm.-&dd.;
 
 /*==============================================================================*/
 /* step 005    Display the global variables to the sas log.                     */
@@ -79,7 +73,7 @@
 %put NOTE: ;
 %put NOTE: &prefix._ymdd_&suffix.  = &&&&&prefix._ymdd_&suffix..;
 %put NOTE: ;
-%put NOTE: &prefix._sas_&suffix.   = &&&&&prefix._sas_&suffix..;
+%put NOTE: &prefix._sas_ndate      = &&&&&prefix._sas_ndate.;
 %put NOTE: ;
 %put NOTE: ======================================================================;
 %put ;
